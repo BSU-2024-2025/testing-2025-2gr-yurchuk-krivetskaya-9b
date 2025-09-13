@@ -32,10 +32,10 @@ public class Calc {
 
         for (String token : rpn) {
             if (token.matches("-?\\d+(\\.\\d+)?")) {
-                // Если токен - число, добавляем в стек
+
                 stack.push(Double.parseDouble(token));
             } else {
-                // Если токен - оператор, извлекаем два операнда и выполняем операцию
+
                 if (stack.size() < 2) {
                     throw new IllegalArgumentException("Недостаточно операндов для операции");
                 }
