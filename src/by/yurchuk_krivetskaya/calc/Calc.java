@@ -7,37 +7,33 @@ import java.util.Stack;
 public class Calc {
 
     public double evaluateExpression(String expression) {
-        // Удаляем все пробелы
         expression = expression.replaceAll("\\s+", "");
 
         if (expression.isEmpty()) {
             throw new IllegalArgumentException("Пустое выражение");
         }
 
-        // Проверяем корректность выражения
         if (!isValidExpression(expression)) {
             throw new IllegalArgumentException("Некорректное выражение");
         }
 
-        // Преобразуем выражение в обратную польскую нотацию
         List<String> rpn = convertToRPN(expression);
 
-        // Вычисляем результат из RPN
+
         return evaluateRPN(rpn);
     }
 
     private boolean isValidExpression(String expression) {
-        // Проверяем, что выражение содержит только цифры и операторы
         if (!expression.matches("[0-9+\\-*/.]+")) {
             return false;
         }
 
-        // Проверяем, что выражение не начинается или не заканчивается оператором (кроме минуса для отрицательных чисел)
+
         if ("+*/".contains(String.valueOf(expression.charAt(0)))) {
             return false;
         }
 
-        // Проверяем, что нет двух операторов подряд
+
         for (int i = 0; i < expression.length() - 1; i++) {
             char current = expression.charAt(i);
             char next = expression.charAt(i + 1);
@@ -58,7 +54,7 @@ public class Calc {
             char c = expression.charAt(i);
 
             if (Character.isDigit(c) || c == '.') {
-                // Собираем число (целое или дробное)
+
                 StringBuilder number = new StringBuilder();
                 while (i < expression.length() &&
                         (Character.isDigit(expression.charAt(i)) ||  expression.charAt(i) == '.')) {
@@ -104,10 +100,9 @@ public class Calc {
 
         for (String token : rpn) {
             if (token.matches("-?\\d+(\\.\\d+)?")) {
-                // Если токен - число, добавляем в стек
+
                 stack.push(Double.parseDouble(token));
             } else {
-                // Если токен - оператор, извлекаем два операнда и выполняем операцию
                 if (stack.size() < 2) {
                     throw new IllegalArgumentException("Недостаточно операндов для операции");
                 }
